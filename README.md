@@ -1,4 +1,4 @@
-# uncompressor
+# pytroshka
 
 ## Simple uncompression tool to counter Matroshka CTF challenge written in python3
 
