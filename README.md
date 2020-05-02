@@ -3,14 +3,14 @@
 ## Simple uncompression tool to counter Matroshka CTF challenge,written in python3
 
 ## Features
-    - Supported archives format :
-        - Zip
-        - Tar
-        - Bzip
-        - Gzip
-    - Auto-crack zip
-    - Auto-uncompress above file format
-    - Save your time
+- Supported archives format :
+    - Zip
+    - Tar
+    - Bzip
+    - Gzip
+- Auto-crack zip
+- Auto-uncompress above file format
+- Save your time
 
 
 
