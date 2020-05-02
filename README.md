@@ -2,7 +2,7 @@
 
 ## Simple uncompression tool to counter Matroshka CTF challenge,written in python3
 
-## Supportorted archives format :
+## Supported archives format :
 - Zip
 - Tar
 - Bzip
@@ -16,7 +16,7 @@
     pip3 install -r requirements.txt
     python3 pytroshka -h
 
-### Windows ( /!\ Couldn't make it work due to libmagic dependency complexity /!\\ )
+### Windows ( /!\ Couldn't make it works due to libmagic dependency complexity /!\\ )
 
     git clone https://github.com/hutchYy/pytroshka
     pip3 install -r requirements.txt
