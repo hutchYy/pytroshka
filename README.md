@@ -1,8 +1,9 @@
-# pytroshka
+# Pytroshka
 
-## Simple uncompression tool to counter Matroshka CTF challenge,written in python3
+Simple uncompression tool to counter Matroshka CTF challenge,written in python3
 
 ## Features
+
 - Supported archives format :
     - Zip
     - Tar
@@ -41,4 +42,12 @@
 - Integrated timer and cpu consumption (You can use time on linux)
 - If crash start automatically from the last extracted archive
 
-Keywords : CTF, Uncompress, Zip, Tar, Bzip, John, zip2john, Gzip
+## Authors
+
+* **hutchYy** - *Initial work*
+
+See also the list of [contributors](https://github.com/hutchYy/pytroshka/contributors) who participated in this project.
+
+## Keywords
+
+CTF, Uncompress, Zip, Tar, Bzip, John, zip2john, Gzip
