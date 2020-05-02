@@ -33,7 +33,7 @@ class John(object):
 
 
     def zip2john(self, current_file: str, tmp_file: str):
-        cmd = subprocess.Popen(["zip2john", current_file],
+        cmd = subprocess.Popen([self.zip2johnCmd, current_file],
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, stderr = cmd.communicate()
         if (stderr != "None"):
@@ -41,13 +41,13 @@ class John(object):
                 f.write(stdout.decode("utf-8"))
 
     def crackzip(self, tmp_file: str, wordlist: str):
-        cmd = subprocess.Popen(["john", tmp_file, "--wordlist="+wordlist],
+        cmd = subprocess.Popen([self.johnCmd, tmp_file, "--wordlist="+wordlist],
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, stderr = cmd.communicate()
         return stdout, stderr
 
     def getPasswordFromJohn(self):
-        cmd = subprocess.Popen(["john", "--show", "tmp"],
+        cmd = subprocess.Popen([self.johnCmd, "--show", "tmp"],
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, _ = cmd.communicate()
         stdout = str(stdout.decode("utf-8"))
@@ -94,10 +94,11 @@ class Pytroshka(object):
                     print(" └ [!] Error happened while trying to uncompress tar")
 
             elif "Zip" in file_type:
-                if self.unzip(self.pathToArchive) :
+                if self.unZip(new_file) :
                     print(" └ [+] zip uncompresssed")
                 else :
                     print(" └ [!] Error happened while trying to crack the zip")
+
             elif "ASCII text" in file_type:
                 if (self.handleFlag(new_file)):
                     flag = ""
@@ -117,8 +118,7 @@ class Pytroshka(object):
 
             # Removing old file and going on with analysis.
             if i > 0 :
-                pass
-                #os.remove(self.pathToArchive)
+                os.remove(self.pathToArchive)
             self.pathToArchive = new_file
             i += 1
 
@@ -144,7 +144,7 @@ class Pytroshka(object):
                     print('ERROR: Did not find {} in tar archive'.format(name))
                     return False
 
-    def unzip(self, new_file: str, password=""):
+    def unZip(self, new_file: str, password=""):
         with zipfile.ZipFile(self.pathToArchive) as cf:
             if len(cf.namelist()) == 1:
                 file_to_be_extracted = cf.namelist()[0]
@@ -162,12 +162,12 @@ class Pytroshka(object):
                     self.john.zip2john(self.pathToArchive, "tmp")
                     passwd = self.john.getPasswordFromJohn()
                     if(passwd != ""):
-                        self.unzip(self.pathToArchive, passwd)
+                        return self.unZip(new_file, passwd)
                     else:
                         self.john.crackzip("tmp", self.wordlist)
                         passwd = self.john.getPasswordFromJohn()
-                        if(passwd != "" and passwd != "password hashes cracked, 0 left"):
-                            self.unzip(self.pathToArchive, passwd)
+                        if(passwd != ""):
+                            return self.unZip(new_file, passwd)
                         else :
                             return False
 
